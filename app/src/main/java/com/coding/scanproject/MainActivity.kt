@@ -7,8 +7,13 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import com.coding.scanproject.entity.MealsWrapper
 import com.google.zxing.integration.android.IntentIntegrator
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,8 +34,26 @@ class MainActivity : AppCompatActivity() {
                     Log.i("MainActivity", result.contents)
                     //val url = result.contents.toString() + "/"
                     val retrofit: Retrofit = Retrofit.Builder()
-                        .baseUrl(result.contents)
+                        .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+                        .addConverterFactory(MoshiConverterFactory.create())
                         .build()
+
+                    val api = retrofit.create(MealDbAPI::class.java)
+                    val call = api.getRecipeData("52839")
+
+                    call.enqueue(object : Callback<MealsWrapper>{
+                        override fun onResponse(
+                            call: Call<MealsWrapper>,
+                            response: Response<MealsWrapper>
+                        ) {
+                            Log.i("MainActivity", "" + response.body())
+                        }
+
+                        override fun onFailure(call: Call<MealsWrapper>, t: Throwable) {
+                            Log.e("MainActivity", "onFailure: ",t )
+                        }
+
+                    })
                     Log.i("MainActivity", retrofit.toString())
                 }
             }
