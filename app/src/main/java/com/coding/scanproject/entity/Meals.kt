@@ -10,6 +10,7 @@ data class MealsWrapper (val meals: List<MealsData>)
 
 
 @Entity(tableName = "meals_items")
+@JsonClass(generateAdapter = true)
 data class MealsData(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "idMeal") val idMeal: String,

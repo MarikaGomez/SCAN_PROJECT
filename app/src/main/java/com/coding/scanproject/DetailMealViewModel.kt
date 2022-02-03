@@ -1,24 +1,35 @@
 package com.coding.scanproject
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.coding.scanproject.entity.MealsData
+import com.coding.scanproject.repository.MealsRepository
+import kotlinx.coroutines.launch
 
 sealed class DetailMealState {
     class Error() : DetailMealState()
     class Success(val meal: MealsData) : DetailMealState()
 }
 
-class DetailMealViewModel : ViewModel() {
+class DetailMealViewModel(private val repository: MealsRepository) : ViewModel() {
 
     private var stateMutableLiveData = MutableLiveData<DetailMealState>()
     fun getStateDetailMealLiveData(): LiveData<DetailMealState> = stateMutableLiveData
 
     //mettre id meal
 
-    fun loadStateDetailMealLiveData(id:String){
-        stateMutableLiveData.value = DetailMealState.Success(MealsData(45,"test","test","test","test","test",""))
+    fun loadStateDetailMealLiveData(){
+        stateMutableLiveData.value = DetailMealState.Success(repository.findByIdMeal("52839"))
     }
 
+
+}
+
+class MealsDetailViewModelFactory(private val repository: MealsRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(DetailMealViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return DetailMealViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
