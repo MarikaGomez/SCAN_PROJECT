@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.entity.MealsWrapper
 import com.google.zxing.integration.android.IntentIntegrator
 import retrofit2.Call
@@ -16,14 +18,15 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
-class ScannerActivity : AppCompatActivity() {
+class MealsScanActivity : AppCompatActivity() {
     private lateinit var mQrResultLauncher : ActivityResultLauncher<Intent>
-    private lateinit var binding: ScannerActivity
+
+    private val viewModel: MealsListViewModel by viewModels{MealsListViewModelFactory((application as MealsApplication).repository)}
+    private lateinit var adapter: MealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val intent = Intent(this, DetailMealActivity::class.java)
 
         // Alternative to "onActivityResult", because that is "deprecated"
         mQrResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -31,13 +34,10 @@ class ScannerActivity : AppCompatActivity() {
                 val result = IntentIntegrator.parseActivityResult(it.resultCode, it.data)
 
                 if(result.contents != null) {
-                    // Do something with the contents (this is usually a URL)
-                    Log.i("MainActivity", result.contents)
-                    // get id from get request
+                    // get value of the param "i" from GET request
                     var uri: Uri = Uri.parse(result.contents)
                     var id: String? = uri.getQueryParameter("i")
 
-                    Log.i("MainActivityID", "$id")
 
                     val retrofit: Retrofit = Retrofit.Builder()
                         // server url
@@ -48,7 +48,6 @@ class ScannerActivity : AppCompatActivity() {
 
                     // call the interface
                     val api = retrofit.create(MealsDbApi::class.java)
-
                     val call = api.getRecipeData(id)
 
                     call.enqueue(object : Callback<MealsWrapper> {
@@ -57,24 +56,23 @@ class ScannerActivity : AppCompatActivity() {
                             call: Call<MealsWrapper>,
                             response: Response<MealsWrapper>
                         ) {
-                            Log.i("MainActivity", "" + response.body())
+                            val wrapping : MealsWrapper? = response.body()
+                            val dataList : List<MealsData> = wrapping!!.meals
+                            val meal : MealsData = dataList[0]
+                            viewModel.insertMeal(meal)
+                            startActivity(intent)
                         }
 
                         // response != 200 | connection problem
                         override fun onFailure(call: Call<MealsWrapper>, t: Throwable) {
                             Log.e("MainActivity", "onFailure: ",t )
                         }
-
                     })
-                    Log.i("MainActivity", retrofit.toString())
                 }
             }
         }
-
-        // Starts scanner on Create of Overlay (you can also call this function using a button click)
         startScanner()
     }
-
 
     // Start the QR Scanner
     private fun startScanner() {
@@ -82,7 +80,7 @@ class ScannerActivity : AppCompatActivity() {
         // QR Code Format
         scanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
         // Set Text Prompt at Bottom of QR code Scanner Activity
-        scanner.setPrompt("QR Code Scanner Prompt Text")
+        scanner.setPrompt("Scan Your QR Code")
         // Start Scanner (don't use initiateScan() unless if you want to use OnActivityResult)
         mQrResultLauncher.launch(scanner.createScanIntent())
     }

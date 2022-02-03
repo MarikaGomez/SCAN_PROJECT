@@ -3,11 +3,9 @@ package com.coding.scanproject
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.coding.scanproject.databinding.ActivityMealsListBinding
-import com.coding.scanproject.entity.MealsData
 
 class MealsListActivity : AppCompatActivity() {
 
@@ -26,6 +24,5 @@ class MealsListActivity : AppCompatActivity() {
             binding.recyclerview.layoutManager = LinearLayoutManager(this)
         })
 
-        viewModel.loadMeals()
     }
 }

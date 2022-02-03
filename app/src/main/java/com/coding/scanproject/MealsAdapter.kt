@@ -6,10 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.databinding.ItemMealBinding
 
+class MealsAdapter(private var meals: List<MealsData>)
+    : RecyclerView.Adapter<MealsAdapter.ViewHolder>() {
 
-class MealsAdapter(private val meals: List<MealsData>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>() {
-    class ViewHolder(val binding: ItemMealBinding) :  RecyclerView.ViewHolder(binding.root){
-    }
+    class ViewHolder(val binding: ItemMealBinding)
+        : RecyclerView.ViewHolder(binding.root)
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meals = meals[position]

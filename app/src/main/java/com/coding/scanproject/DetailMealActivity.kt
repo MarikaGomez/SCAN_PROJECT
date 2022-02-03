@@ -46,7 +46,6 @@ class DetailMealActivity : AppCompatActivity() {
                 binding.instructionMeal.text = meal.strInstructions
                 binding.titleMeal.text = meal.strMeal
                 binding.typeMeal.text = meal.strCategory
-
             }
 
             override fun onFailure(call: Call<MealsWrapper>, t: Throwable) {
