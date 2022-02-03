@@ -14,6 +14,7 @@ data class MealsData(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "idMeal") val idMeal: String,
     @ColumnInfo(name = "strMeal") val strMeal: String,
+    @ColumnInfo(name = "strMealThumb") val strMealThumb: String,
     @ColumnInfo(name = "strCategory") val strCategory: String,
     @ColumnInfo(name = "strArea") val strArea: String,
     @ColumnInfo(name = "strInstructions") val strInstructions: String,

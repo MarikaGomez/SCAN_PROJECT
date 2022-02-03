@@ -2,11 +2,12 @@ package com.coding.scanproject
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import com.coding.scanproject.entity.MealsWrapper
 import com.google.zxing.integration.android.IntentIntegrator
 import retrofit2.Call
@@ -16,9 +17,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 
-class MainActivity : AppCompatActivity() {
+class ScannerActivity : AppCompatActivity() {
     private lateinit var mQrResultLauncher : ActivityResultLauncher<Intent>
-    private lateinit var binding: MainActivity
+    private lateinit var binding: ScannerActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,23 +33,34 @@ class MainActivity : AppCompatActivity() {
                 if(result.contents != null) {
                     // Do something with the contents (this is usually a URL)
                     Log.i("MainActivity", result.contents)
-                    //val url = result.contents.toString() + "/"
+                    // get id from get request
+                    var uri: Uri = Uri.parse(result.contents)
+                    var id: String? = uri.getQueryParameter("i")
+
+                    Log.i("MainActivityID", "$id")
+
                     val retrofit: Retrofit = Retrofit.Builder()
+                        // server url
                         .baseUrl("https://www.themealdb.com/api/json/v1/1/")
+                        // convert to JSON wish MOSHI
                         .addConverterFactory(MoshiConverterFactory.create())
                         .build()
 
-                    val api = retrofit.create(MealDbAPI::class.java)
-                    val call = api.getRecipeData("52839")
+                    // call the interface
+                    val api = retrofit.create(MealsDbApi::class.java)
 
-                    call.enqueue(object : Callback<MealsWrapper>{
+                    val call = api.getRecipeData(id)
+
+                    call.enqueue(object : Callback<MealsWrapper> {
                         override fun onResponse(
+                            // check the response | 200
                             call: Call<MealsWrapper>,
                             response: Response<MealsWrapper>
                         ) {
                             Log.i("MainActivity", "" + response.body())
                         }
 
+                        // response != 200 | connection problem
                         override fun onFailure(call: Call<MealsWrapper>, t: Throwable) {
                             Log.e("MainActivity", "onFailure: ",t )
                         }

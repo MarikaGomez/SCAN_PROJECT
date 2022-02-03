@@ -35,50 +35,49 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    buildFeatures {
-        viewBinding true
-    }
 }
 
 dependencies {
 
-    def roomVersion = "2.4.1"
+
 
     // ZXing
     implementation "com.journeyapps:zxing-android-embedded:3.6.0"
 
-    def moshi_version = "1.9.1"
+    // Moshi
+    def moshi_version = "1.13.0"
     implementation "com.squareup.moshi:moshi:$moshi_version"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshi_version"
 
+    // Retrofit
     def retrofit_version = "2.9.0"
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:$retrofit_version"
     implementation "com.squareup.retrofit2:retrofit-mock:$retrofit_version"
 
+
+    def roomVersion = "2.4.1"
     implementation("androidx.room:room-runtime:$roomVersion")
     annotationProcessor("androidx.room:room-compiler:$roomVersion")
 
     // To use Kotlin annotation processing tool (kapt)
     kapt("androidx.room:room-compiler:$roomVersion")
-
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$roomVersion")
-
     // optional - RxJava2 support for Room
     implementation("androidx.room:room-rxjava2:$roomVersion")
-
     // optional - RxJava3 support for Room
     implementation("androidx.room:room-rxjava3:$roomVersion")
-
     // optional - Guava support for Room, including Optional and ListenableFuture
     implementation("androidx.room:room-guava:$roomVersion")
-
     // optional - Test helpers
     testImplementation("androidx.room:room-testing:$roomVersion")
 
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:2.4.1")
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'

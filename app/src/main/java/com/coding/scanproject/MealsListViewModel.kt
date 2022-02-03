@@ -21,7 +21,7 @@ class MealsListViewModel(private val repository: MealsRepository): ViewModel() {
 //    }
 
     fun loadMeals() {
-        insertMeal(MealsData(4, "dddd", "ddddd", "ddddd", "ddddd"))
+        insertMeal(MealsData(4, "dddd", "ddddd", "ddddd", "ddddd","",""))
     }
 
     fun getMeals() : LiveData<List<MealsData>> = repository.getAllMeals()
