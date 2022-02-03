@@ -1,0 +1,31 @@
+package com.coding.scanproject
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.coding.scanproject.databinding.ActivityMealsListBinding
+import com.coding.scanproject.entity.MealsData
+
+class MealsListActivity : AppCompatActivity() {
+
+    private val viewModel: MealsListViewModel by viewModels{MealsListViewModelFactory((application as MealsApplication).repository)
+    }
+    private lateinit var adapter: MealsAdapter
+    private lateinit var binding: ActivityMealsListBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMealsListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        viewModel.getMeals().observe(this, Observer {  meals ->
+            adapter = MealsAdapter(meals)
+            binding.recyclerview.adapter = adapter
+            binding.recyclerview.layoutManager = LinearLayoutManager(this)
+        })
+
+        viewModel.loadMeals()
+    }
+}
