@@ -17,6 +17,7 @@
         android:theme="@style/Theme.SCAN_PROJECT">
         <activity
             android:name=".DetailMealActivity"
+            android:parentActivityName=".MealsListActivity"
             android:exported="true">
         </activity>
         <activity

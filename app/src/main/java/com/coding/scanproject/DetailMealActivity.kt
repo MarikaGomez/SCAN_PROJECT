@@ -1,19 +1,11 @@
 package com.coding.scanproject
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import com.coding.scanproject.databinding.ActivityDetailMealBinding
-import com.coding.scanproject.entity.MealsData
-import com.coding.scanproject.entity.MealsWrapper
 import com.squareup.picasso.Picasso
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+
 
 class DetailMealActivity : AppCompatActivity() {
 
@@ -30,13 +22,14 @@ class DetailMealActivity : AppCompatActivity() {
         viewModel.getStateDetailMealLiveData().observe(this) { state ->
             when (state){
                 is DetailMealState.Success -> {
+                    val imageUrl : String = state.meal.strMealThumb
+                    Picasso.get().load(imageUrl).into(binding.imageMeal)
                     binding.instructionMeal.text = state.meal.strInstructions
                     binding.titleMeal.text = state.meal.strMeal
                     binding.typeMeal.text = state.meal.strCategory
                 }
             }
         }
-
         viewModel.loadStateDetailMealLiveData(idMeal)
     }
 }

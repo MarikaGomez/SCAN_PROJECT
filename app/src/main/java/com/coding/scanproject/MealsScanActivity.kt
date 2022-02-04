@@ -26,7 +26,7 @@ class MealsScanActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val intent = Intent(this, DetailMealActivity::class.java)
+        val intent = Intent(this, MealsListActivity::class.java)
 
         // Alternative to "onActivityResult", because that is "deprecated"
         mQrResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {

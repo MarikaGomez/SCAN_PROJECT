@@ -9,8 +9,7 @@ import com.coding.scanproject.databinding.ActivityMealsListBinding
 
 class MealsListActivity : AppCompatActivity() {
 
-    private val viewModel: MealsListViewModel by viewModels{MealsListViewModelFactory((application as MealsApplication).repository)
-    }
+    private val viewModel: MealsListViewModel by viewModels{MealsListViewModelFactory((application as MealsApplication).repository)}
     private lateinit var adapter: MealsAdapter
     private lateinit var binding: ActivityMealsListBinding
 
@@ -23,6 +22,5 @@ class MealsListActivity : AppCompatActivity() {
             binding.recyclerview.adapter = adapter
             binding.recyclerview.layoutManager = LinearLayoutManager(this)
         })
-
     }
 }
