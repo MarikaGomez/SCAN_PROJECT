@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.coding.scanproject.application.MealsApplication
 import com.coding.scanproject.databinding.ActivityDetailMealBinding
+import com.squareup.picasso.Picasso
 
 class DetailMealActivity : AppCompatActivity() {
 
@@ -21,13 +22,14 @@ class DetailMealActivity : AppCompatActivity() {
         viewModel.getStateDetailMealLiveData().observe(this) { state ->
             when (state){
                 is DetailMealState.Success -> {
+                    val imageUrl : String = state.meal.strMealThumb
+                    Picasso.get().load(imageUrl).into(binding.imageMeal)
                     binding.instructionMeal.text = state.meal.strInstructions
                     binding.titleMeal.text = state.meal.strMeal
                     binding.typeMeal.text = state.meal.strCategory
                 }
             }
         }
-
         viewModel.loadStateDetailMealLiveData(idMeal)
     }
 }

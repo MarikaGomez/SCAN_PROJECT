@@ -17,17 +17,20 @@
         android:theme="@style/Theme.SCAN_PROJECT">
         <activity
             android:name=".mealDetail.DetailMealActivity"
-            android:exported="true">
-        </activity>
+            android:parentActivityName=".mealList.MealsListActivity"
+            android:exported="true"/>
+
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
             tools:replace="android:screenOrientation" />
+
         <activity
             android:name=".mealList.MealsListActivity"
-            android:exported="true">
-        </activity>
+            android:parentActivityName=".scanMeal.MealsScanActivity"
+            android:exported="true"/>
+
         <activity
             android:name=".scanMeal.MealsScanActivity"
             android:exported="true">

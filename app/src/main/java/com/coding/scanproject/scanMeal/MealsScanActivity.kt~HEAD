@@ -17,7 +17,6 @@ import com.coding.scanproject.application.MealsApplication
 import com.coding.scanproject.configDatabase.MealsDbApi
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.entity.MealsWrapper
-import com.coding.scanproject.mealList.MealsListActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import retrofit2.Call
 import retrofit2.Callback
