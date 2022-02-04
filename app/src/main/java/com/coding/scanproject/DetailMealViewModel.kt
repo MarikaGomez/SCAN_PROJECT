@@ -15,12 +15,10 @@ class DetailMealViewModel(private val repository: MealsRepository) : ViewModel()
     private var stateMutableLiveData = MutableLiveData<DetailMealState>()
     fun getStateDetailMealLiveData(): LiveData<DetailMealState> = stateMutableLiveData
 
-    //mettre id meal
 
-    fun loadStateDetailMealLiveData(){
-        stateMutableLiveData.value = DetailMealState.Success(repository.findByIdMeal("52839"))
+    fun loadStateDetailMealLiveData(id:String){
+        stateMutableLiveData.value = DetailMealState.Success(repository.findByIdMeal(id))
     }
-
 
 }
 

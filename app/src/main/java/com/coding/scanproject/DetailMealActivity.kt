@@ -1,5 +1,6 @@
 package com.coding.scanproject
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -23,7 +24,9 @@ class DetailMealActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailMealBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.i("MainActivity", "test")
+
+
+        val idMeal = intent.getStringExtra("idMeal").toString()
 
         viewModel.getStateDetailMealLiveData().observe(this) { state ->
             when (state){
@@ -34,6 +37,7 @@ class DetailMealActivity : AppCompatActivity() {
                 }
             }
         }
-        viewModel.loadStateDetailMealLiveData()
+
+        viewModel.loadStateDetailMealLiveData(idMeal)
     }
 }
