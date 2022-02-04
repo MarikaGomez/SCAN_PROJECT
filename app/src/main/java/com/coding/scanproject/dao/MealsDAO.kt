@@ -13,8 +13,8 @@ interface MealsDAO {
     @Query("SELECT * FROM meals_items")
     fun getAll(): LiveData<List<MealsData>>
 
-    @Query("SELECT * FROM meals_items WHERE id LIKE :id")
-    fun findById(id: String): MealsData
+    @Query("SELECT * FROM meals_items WHERE idMeal LIKE :idMeal")
+    fun findById(idMeal: String): MealsData
 
     @Insert
     fun insertMeal(vararg meal: MealsData)

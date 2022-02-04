@@ -15,4 +15,7 @@ class MealsRepository(private val mealsDAO: MealsDAO) {
     }
 
     fun getAllMeals(): LiveData<List<MealsData>> = mealsDAO.getAll()
+
+    fun findByIdMeal(id:String): MealsData = mealsDAO.findById(id)
+
 }
