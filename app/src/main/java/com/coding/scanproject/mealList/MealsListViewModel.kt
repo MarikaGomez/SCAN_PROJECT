@@ -1,4 +1,4 @@
-package com.coding.scanproject
+package com.coding.scanproject.mealList
 
 import androidx.lifecycle.*
 import com.coding.scanproject.entity.MealsData

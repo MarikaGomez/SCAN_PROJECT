@@ -1,16 +1,14 @@
-package com.coding.scanproject
+package com.coding.scanproject.mealList
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.databinding.ItemMealBinding
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
+import com.coding.scanproject.mealDetail.DetailMealActivity
 
 class MealsAdapter(private val meals: List<MealsData>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>(){
     class ViewHolder(val binding: ItemMealBinding) :  RecyclerView.ViewHolder(binding.root){
@@ -22,7 +20,7 @@ class MealsAdapter(private val meals: List<MealsData>) : RecyclerView.Adapter<Me
         holder.binding.idMeal.text = meals.idMeal
         holder.binding.btDetails.setOnClickListener(View.OnClickListener {
 
-        val intent = Intent(it.context,DetailMealActivity::class.java)
+        val intent = Intent(it.context, DetailMealActivity::class.java)
             intent.putExtra("idMeal", holder.binding.idMeal.text);
             Log.i("Mainactvity", ""+holder.binding.idMeal.text)
             it.context.startActivity(intent);

@@ -1,9 +1,8 @@
-package com.coding.scanproject
+package com.coding.scanproject.mealDetail
 
 import androidx.lifecycle.*
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.repository.MealsRepository
-import kotlinx.coroutines.launch
 
 sealed class DetailMealState {
     class Error() : DetailMealState()

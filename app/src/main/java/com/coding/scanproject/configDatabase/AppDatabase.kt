@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.coding.scanproject.MealsApplication
 import com.coding.scanproject.dao.MealsDAO
 import com.coding.scanproject.entity.MealsData
 import kotlinx.coroutines.CoroutineScope

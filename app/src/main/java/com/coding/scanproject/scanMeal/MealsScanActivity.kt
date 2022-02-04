@@ -1,4 +1,4 @@
-package com.coding.scanproject
+package com.coding.scanproject.scanMeal
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,12 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.coding.scanproject.mealDetail.DetailMealActivity
+import com.coding.scanproject.mealList.MealsAdapter
+import com.coding.scanproject.mealList.MealsListViewModel
+import com.coding.scanproject.mealList.MealsListViewModelFactory
+import com.coding.scanproject.application.MealsApplication
+import com.coding.scanproject.configDatabase.MealsDbApi
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.entity.MealsWrapper
 import com.google.zxing.integration.android.IntentIntegrator
@@ -21,7 +27,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 class MealsScanActivity : AppCompatActivity() {
     private lateinit var mQrResultLauncher : ActivityResultLauncher<Intent>
 
-    private val viewModel: MealsListViewModel by viewModels{MealsListViewModelFactory((application as MealsApplication).repository)}
+    private val viewModel: MealsListViewModel by viewModels{ MealsListViewModelFactory((application as MealsApplication).repository) }
     private lateinit var adapter: MealsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {

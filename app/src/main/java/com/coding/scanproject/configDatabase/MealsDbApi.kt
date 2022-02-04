@@ -1,4 +1,4 @@
-package com.coding.scanproject
+package com.coding.scanproject.configDatabase
 
 import com.coding.scanproject.entity.MealsWrapper
 import retrofit2.Call

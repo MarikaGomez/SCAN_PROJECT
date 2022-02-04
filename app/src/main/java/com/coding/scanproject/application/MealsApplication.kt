@@ -1,4 +1,4 @@
-package com.coding.scanproject
+package com.coding.scanproject.application
 
 import android.app.Application
 import com.coding.scanproject.configDatabase.AppDatabase
