@@ -18,4 +18,6 @@ class MealsRepository(private val mealsDAO: MealsDAO) {
 
     fun findByIdMeal(id:String): MealsData = mealsDAO.findById(id)
 
+    fun deleteData() = mealsDAO.deleteMeal()
+
 }

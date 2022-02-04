@@ -3,6 +3,7 @@ package com.coding.scanproject
 import androidx.lifecycle.*
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.repository.MealsRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MealsListViewModel(private val repository: MealsRepository): ViewModel() {
@@ -17,14 +18,15 @@ class MealsListViewModel(private val repository: MealsRepository): ViewModel() {
 ////        readAllMeals = repository.getAllMeals()
 //    }
 
-    fun loadMeals() {
-        insertMeal(MealsData(874490, "dddd", "dddddff", "ddddd", "ddddd", "jjjj", "jhhhh"))
-    }
-
     fun getMeals() : LiveData<List<MealsData>> = repository.getAllMeals()
 
     fun insertMeal(meal: MealsData) = viewModelScope.launch {
         repository.insertMeal(meal)
+    }
+    fun deleteMeals() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteData()
+        }
     }
 }
 

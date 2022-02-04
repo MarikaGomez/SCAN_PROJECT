@@ -19,8 +19,8 @@ interface MealsDAO {
     @Insert
     fun insertMeal(vararg meal: MealsData)
 
-    @Delete
-    fun deleteMeal(meal: MealsData)
+    @Query("DELETE FROM meals_items")
+    fun deleteMeal()
 
     @Update
     fun updateMeal(vararg meal: MealsData)

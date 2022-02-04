@@ -18,11 +18,12 @@ class MealsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMealsListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.getMeals().observe(this, Observer {  meals ->
-            adapter = MealsAdapter(meals)
-            binding.recyclerview.adapter = adapter
-            binding.recyclerview.layoutManager = LinearLayoutManager(this)
-        })
+        viewModel.deleteMeals()
+//        viewModel.getMeals().observe(this, Observer {  meals ->
+//            adapter = MealsAdapter(meals)
+//            binding.recyclerview.adapter = adapter
+//            binding.recyclerview.layoutManager = LinearLayoutManager(this)
+//        })
 
     }
 }
