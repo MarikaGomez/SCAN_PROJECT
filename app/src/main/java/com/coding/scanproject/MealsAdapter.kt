@@ -1,16 +1,14 @@
 package com.coding.scanproject
 
-import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.coding.scanproject.entity.MealsData
 import com.coding.scanproject.databinding.ItemMealBinding
 import android.content.Intent
-import androidx.core.content.ContextCompat.startActivity
+import com.squareup.picasso.Picasso
 
 class MealsAdapter(private val meals: List<MealsData>) : RecyclerView.Adapter<MealsAdapter.ViewHolder>(){
     class ViewHolder(val binding: ItemMealBinding) :  RecyclerView.ViewHolder(binding.root){
@@ -18,6 +16,9 @@ class MealsAdapter(private val meals: List<MealsData>) : RecyclerView.Adapter<Me
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val meals = meals[position]
+
+        val imageUrl : String = meals.strMealThumb
+        Picasso.get().load(imageUrl).into(holder.binding.imageView)
         holder.binding.strMeal.text = meals.strMeal
         holder.binding.idMeal.text = meals.idMeal
         holder.binding.btDetails.setOnClickListener(View.OnClickListener {

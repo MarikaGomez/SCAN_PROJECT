@@ -12,12 +12,6 @@ class MealsListViewModel(private val repository: MealsRepository): ViewModel() {
 
     val allMeals: LiveData<List<MealsData>> = repository.mealsList
 
-//    init {
-//        val mealDB = AppDatabase.getInstance().mealsDAO()
-//        repository = MealsRepository(mealDB)
-////        readAllMeals = repository.getAllMeals()
-//    }
-
     fun getMeals() : LiveData<List<MealsData>> = repository.getAllMeals()
 
     fun insertMeal(meal: MealsData) = viewModelScope.launch {
